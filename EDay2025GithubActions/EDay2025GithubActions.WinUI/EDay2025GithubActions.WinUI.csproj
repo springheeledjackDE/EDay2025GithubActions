@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
+		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+		<RootNamespace>EDay2025GithubActions.WinUI</RootNamespace>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<Platforms>x86;x64;ARM64</Platforms>
+		<RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+		<!--<PublishProfile>win10-$(Platform).pubxml</PublishProfile>-->
+		<PublishProfile>Properties\PublishProfiles\win-msix.pubxml</PublishProfile>
+
+		<UseWinUI>true</UseWinUI>
+		<EnableMsixTooling>true</EnableMsixTooling>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseMaui>true</UseMaui>
+		<!-- We do not want XAML files to be processed as .NET MAUI XAML, but rather WinUI XAML. -->
+		<EnableDefaultMauiItems>false</EnableDefaultMauiItems>
+		<GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+		<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+		<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+		<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+		<GenerateTestArtifacts>True</GenerateTestArtifacts>
+		<AppxBundle>Always</AppxBundle>
+		<AppInstallerUri>C:\Users\kevin.melvin\source\repos\AllControlsMauiApp\PublishedOutputs/AllControlsMauiApp.WinUI</AppInstallerUri>
+		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\EDay2025GithubActions\EDay2025GithubActions.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- Make sure all image assets to be in the root of the package to match the other platforms -->
+		<Content Update="Assets\Images\*" TargetPath="%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Manifest Include="$(ApplicationManifest)" />
+	</ItemGroup>
+
+	<!--
+		Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
+		Tools extension to be activated for this project even if the Windows App SDK Nuget
+		package has not yet been restored.
+	-->
+	<ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+		<ProjectCapability Include="Msix" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Certificate\" />
+	</ItemGroup>
+
+	<!--
+		Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
+		Explorer "Package and Publish" context menu entry to be enabled for this project even if
+		the Windows App SDK Nuget package has not yet been restored.
+	-->
+	<PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+		<HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageName>$(AssemblyName)_$(Version)_$(Platform)_$(Configuration).msix</PackageName>
+		<WindowsPackageType>MSIX</WindowsPackageType>
+		<AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
+		<PackageCertificateThumbprint>C91BBBA72B6EEDECC8E219EFAE671BEC1DDAA048</PackageCertificateThumbprint>
+	</PropertyGroup>
+</Project>

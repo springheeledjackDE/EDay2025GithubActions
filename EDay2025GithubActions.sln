@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDay2025GithubActions", "EDay2025GithubActions\EDay2025GithubActions\EDay2025GithubActions.csproj", "{CC93DBA7-0763-461D-BE7D-94758D546F16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDay2025GithubActions.Droid", "EDay2025GithubActions\EDay2025GithubActions.Droid\EDay2025GithubActions.Droid.csproj", "{A5648CDA-17B9-4B09-8987-261D4A7A4782}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDay2025GithubActions.WinUI", "EDay2025GithubActions\EDay2025GithubActions.WinUI\EDay2025GithubActions.WinUI.csproj", "{0A18CF15-5B9F-4FEE-809B-4C0F5ECCA011}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC93DBA7-0763-461D-BE7D-94758D546F16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC93DBA7-0763-461D-BE7D-94758D546F16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC93DBA7-0763-461D-BE7D-94758D546F16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC93DBA7-0763-461D-BE7D-94758D546F16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5648CDA-17B9-4B09-8987-261D4A7A4782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5648CDA-17B9-4B09-8987-261D4A7A4782}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5648CDA-17B9-4B09-8987-261D4A7A4782}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A5648CDA-17B9-4B09-8987-261D4A7A4782}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5648CDA-17B9-4B09-8987-261D4A7A4782}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5648CDA-17B9-4B09-8987-261D4A7A4782}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0A18CF15-5B9F-4FEE-809B-4C0F5ECCA011}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{0A18CF15-5B9F-4FEE-809B-4C0F5ECCA011}.Debug|Any CPU.Build.0 = Debug|x64
+		{0A18CF15-5B9F-4FEE-809B-4C0F5ECCA011}.Debug|Any CPU.Deploy.0 = Debug|x64
+		{0A18CF15-5B9F-4FEE-809B-4C0F5ECCA011}.Release|Any CPU.ActiveCfg = Release|x64
+		{0A18CF15-5B9F-4FEE-809B-4C0F5ECCA011}.Release|Any CPU.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8CABFCCC-AD75-4F58-9ADB-C1A7A4AC14F4}
+	EndGlobalSection
+EndGlobal
