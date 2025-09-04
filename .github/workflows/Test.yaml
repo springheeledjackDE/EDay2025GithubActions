@@ -1,0 +1,31 @@
+name: Build MAUI WinUI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-winui:
+    runs-on: windows-latest  # Required for WinUI builds
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'  # Adjust to your project’s SDK
+
+      # Optional: restore workloads if MAUI isn’t fully present
+      - name: Install MAUI workload
+        run: dotnet workload install maui
+
+      - name: Restore dependencie.
+        run: dotnet restore EDay2025GithubActions.sln
+
+      - name: Build WinUI project
+        run: dotnet build EDay2025GithubActions\EDay2025GithubActions.WinUI\EDay2025GithubActions.WinUI.csproj -c Release -f net8.0-windows10.0.19041.0
