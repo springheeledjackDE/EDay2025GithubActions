@@ -28,4 +28,4 @@ jobs:
         run: dotnet restore EDay2025GithubActions.sln
 
       - name: Build WinUI project
-        run: dotnet build EDay2025GithubActions\EDay2025GithubActions.WinUI\EDay2025GithubActions.WinUI.csproj -c Release -f net8.0-windows10.0.19041.0
+        run: dotnet build EDay2025GithubActions\EDay2025GithubActions.WinUI\EDay2025GithubActions.WinUI.csproj -c Release -f net9.0-windows10.0.19041.0
