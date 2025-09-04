@@ -22,7 +22,10 @@ jobs:
 
       # Optional: restore workloads if MAUI isn’t fully present
       - name: Install MAUI workload
-        run: dotnet workload install maui
+        run: dotnet workload install maui --ignore-failed-sources
+
+      - name: Verify workloads
+        run: dotnet workload list
 
       - name: Restore dependencie.
         run: dotnet restore EDay2025GithubActions.sln
