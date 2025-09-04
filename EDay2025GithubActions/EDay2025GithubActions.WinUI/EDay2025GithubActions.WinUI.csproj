@@ -73,6 +73,6 @@
 		<PackageName>$(AssemblyName)_$(Version)_$(Platform)_$(Configuration).msix</PackageName>
 		<WindowsPackageType>MSIX</WindowsPackageType>
 		<AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
-		<PackageCertificateThumbprint>C91BBBA72B6EEDECC8E219EFAE671BEC1DDAA048</PackageCertificateThumbprint>
+		<!--<PackageCertificateThumbprint>C91BBBA72B6EEDECC8E219EFAE671BEC1DDAA048</PackageCertificateThumbprint>-->
 	</PropertyGroup>
 </Project>
