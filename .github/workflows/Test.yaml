@@ -22,7 +22,10 @@ jobs:
 
       # Optional: restore workloads if MAUI isn’t fully present
       - name: Install MAUI workload
-        run: dotnet workload install maui
+        run: dotnet workload install maui --ignore-failed-sources
+
+      - name: Verify workloads
+        run: dotnet workload list
 
     # Cache NuGet packages
       - name: Cache NuGet packages
@@ -37,7 +40,7 @@ jobs:
         run: dotnet restore EDay2025GithubActions.sln
 
       - name: Build WinUI project
-        run: dotnet build EDay2025GithubActions\EDay2025GithubActions.WinUI\EDay2025GithubActions.WinUI.csproj -c Release -f net8.0-windows10.0.19041.0
+        run: dotnet build EDay2025GithubActions\EDay2025GithubActions.WinUI\EDay2025GithubActions.WinUI.csproj -c Release -f net9.0-windows10.0.19041.0
 
       - name: Publish WinUI project
         shell: pwsh
