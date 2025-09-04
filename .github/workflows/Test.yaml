@@ -24,6 +24,15 @@ jobs:
       - name: Install MAUI workload
         run: dotnet workload install maui
 
+    # Cache NuGet packages
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
       - name: Restore dependencie.
         run: dotnet restore EDay2025GithubActions.sln
 
