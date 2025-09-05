@@ -93,7 +93,22 @@ jobs:
         run: dotnet build EDay2025GithubActions\EDay2025GithubActions.WinUI\EDay2025GithubActions.WinUI.csproj -c Release -f net9.0-windows10.0.19041.0
 
       - name: Run xUnit tests
-        run: dotnet test EDay2025GithubActions\TestProject1.csproj -c Release
+        run: dotnet test EDay2025GithubActions\TestProject1\TestProject1.csproj -c Release --logger "trx;LogFileName=test_results.trx" --results-directory ./TestResults
+
+      - name: Install trx2junit
+        run: dotnet tool install -g trx2junit
+
+      - name: Convert TRX to JUnit
+        run: trx2junit ./TestResults/test_results.trx
+
+      - name: Publish Test Report
+        uses: dorny/test-reporter@v2
+        if: always()
+        with:
+          name: xUnit Tests
+          path: ./TestResults/*.xml
+          reporter: java-junit
+
 
       - name: Publish WinUI project
         shell: pwsh
