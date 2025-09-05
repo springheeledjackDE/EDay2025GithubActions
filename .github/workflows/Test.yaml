@@ -18,7 +18,11 @@ jobs:
       - name: Debug secrets presence
         shell: pwsh
         run: |
-            if ("${{ secrets.PFX_CERT_BASE64 }}" -eq "") { Write-Error "PFX_CERT_BASE64 secret is missing!" }
+            if ("${{ secrets.PFX_CERT_BASE64 }}" -eq "") {
+              Write-Error "PFX_CERT_BASE64 secret is missing!"
+            } else {
+              Write-Output "PFX_CERT_BASE64 is set (length: $(${ { secrets.PFX_CERT_BASE64 } }.Length))"
+            }
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
