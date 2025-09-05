@@ -19,6 +19,8 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0.x'  # Adjust to your project’s SDK
+          cache: true
+          cache-dependency-path: "**/packages.lock.json"
 
       # Optional: restore workloads if MAUI isn’t fully present
       - name: Install MAUI workload
@@ -28,16 +30,16 @@ jobs:
         run: dotnet workload list
 
     # Cache NuGet packages
-      - name: Cache NuGet packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
+      # - name: Cache NuGet packages
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: ~/.nuget/packages
+      #     key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-nuget-
 
       - name: Restore dependencie.
-        run: dotnet restore EDay2025GithubActions.sln
+        run: dotnet restore EDay2025GithubActions.sln --locked-mode
 
       - name: Decode and import signing certificate
         shell: pwsh
