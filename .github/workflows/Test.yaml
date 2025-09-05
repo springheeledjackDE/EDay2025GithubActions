@@ -15,6 +15,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Debug secrets presence
+        shell: pwsh
+        run: |
+            $pfxCert = "${{ secrets.PFX_CERT_BASE64 }}"
+            $pfxPass = "${{ secrets.PFX_CERT_PASSWORD }}"
+
+            if ([string]::IsNullOrEmpty($pfxCert)) {
+              Write-Error "PFX_CERT_BASE64 secret is missing!"
+            } else {
+              Write-Output "PFX_CERT_BASE64 is set (length: $($pfxCert.Length))"
+            }
+
+            if ([string]::IsNullOrEmpty($pfxPass)) {
+              Write-Error "PFX_CERT_PASSWORD secret is missing!"
+            } else {
+              Write-Output "PFX_CERT_PASSWORD is set (length: $($pfxPass.Length))"
+            }
+
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
@@ -57,28 +75,28 @@ jobs:
       - name: Restore dependencie.
         run: dotnet restore EDay2025GithubActions.sln --locked-mode --force-evaluate
 
-      # - name: Decode and import signing certificate
-      #   shell: pwsh
-      #   run: |
-      #       $pfxPath = "$env:USERPROFILE\edays2025.pfx"
-      #       [IO.File]::WriteAllBytes($pfxPath, [Convert]::FromBase64String("${{ secrets.PFX_CERT_BASE64 }}"))
-      #       Import-PfxCertificate -FilePath $pfxPath -Password (ConvertTo-SecureString -String "${{ secrets.PFX_PASSWORD }}" -AsPlainText -Force) -CertStoreLocation Cert:\CurrentUser\My
+      - name: Decode and import signing certificate
+        shell: pwsh
+        run: |
+            $pfxPath = "$env:USERPROFILE\edays2025.pfx"
+            [IO.File]::WriteAllBytes($pfxPath, [Convert]::FromBase64String("${{ secrets.PFX_CERT_BASE64 }}"))
+            Import-PfxCertificate -FilePath $pfxPath -Password (ConvertTo-SecureString -String "${{ secrets.PFX_CERT_PASSWORD }}" -AsPlainText -Force) -CertStoreLocation Cert:\CurrentUser\My
 
       - name: Build WinUI project
         run: dotnet build EDay2025GithubActions\EDay2025GithubActions.WinUI\EDay2025GithubActions.WinUI.csproj -c Release -f net9.0-windows10.0.19041.0
 
-      # - name: Publish WinUI project
-      #   shell: pwsh
-      #   run: |
-      #     $projectName = "EDay2025GithubActions.WinUI"
-      #     $rootFolderPath = "EDay2025GithubActions/EDay2025GithubActions.WinUI"
-      #     $pubxmlPath = Resolve-Path (Join-Path $rootFolderPath "Properties/PublishProfiles/win-msix.pubxml")
-      #     $projectFilePath = Join-Path $rootFolderPath "$projectName.csproj"
+      - name: Publish WinUI project
+        shell: pwsh
+        run: |
+          $projectName = "EDay2025GithubActions.WinUI"
+          $rootFolderPath = "EDay2025GithubActions/EDay2025GithubActions.WinUI"
+          $pubxmlPath = Resolve-Path (Join-Path $rootFolderPath "Properties/PublishProfiles/win-msix.pubxml")
+          $projectFilePath = Join-Path $rootFolderPath "$projectName.csproj"
 
-      #     dotnet publish $projectFilePath -p:PublishProfile=$pubxmlPath
+          dotnet publish $projectFilePath -p:PublishProfile=$pubxmlPath
 
-      # - name: Upload published artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: WinUI-publish
-      #     path: ${{ github.workspace }}/EDay2025GithubActions/EDay2025GithubActions.WinUI/bin/publish/net9.0-windows10.0.19041.0/win-x64/AppPackages
+      - name: Upload published artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WinUI-publish
+          path: ${{ github.workspace }}/EDay2025GithubActions/EDay2025GithubActions.WinUI/bin/publish/net9.0-windows10.0.19041.0/win-x64/AppPackages
