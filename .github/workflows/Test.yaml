@@ -93,7 +93,7 @@ jobs:
         run: dotnet build EDay2025GithubActions\EDay2025GithubActions.WinUI\EDay2025GithubActions.WinUI.csproj -c Release -f net9.0-windows10.0.19041.0
 
       - name: Run xUnit tests
-        run: dotnet test EDay2025GithubActions\TestProject1.csproj -c Release --logger "trx;LogFileName=test_results.trx" --results-directory ./TestResults
+        run: dotnet test EDay2025GithubActions\TestProject1\TestProject1.csproj -c Release --logger "trx;LogFileName=test_results.trx" --results-directory ./TestResults
 
       - name: Install trx2junit
         run: dotnet tool install -g trx2junit
