@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\Test.yaml = .github\workflows\Test.yaml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{CBB3A70A-E058-42FD-8CF4-D01A84BBC197}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{0A18CF15-5B9F-4FEE-809B-4C0F5ECCA011}.Debug|Any CPU.Deploy.0 = Debug|x64
 		{0A18CF15-5B9F-4FEE-809B-4C0F5ECCA011}.Release|Any CPU.ActiveCfg = Release|x64
 		{0A18CF15-5B9F-4FEE-809B-4C0F5ECCA011}.Release|Any CPU.Build.0 = Release|x64
+		{CBB3A70A-E058-42FD-8CF4-D01A84BBC197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBB3A70A-E058-42FD-8CF4-D01A84BBC197}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBB3A70A-E058-42FD-8CF4-D01A84BBC197}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBB3A70A-E058-42FD-8CF4-D01A84BBC197}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
