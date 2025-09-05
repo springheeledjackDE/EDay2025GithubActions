@@ -22,6 +22,13 @@ jobs:
           cache: true
           cache-dependency-path: "**/packages.lock.json"
 
+
+      - name: Ensure dotnet dirs exist
+        run: |
+         mkdir -p ~/.dotnet/packs
+         mkdir -p ~/.dotnet/sdk-manifests
+         mkdir -p ~/.dotnet/workloadinstallrecords
+
       - name: Cache .NET workloads
         id: cache-maui
         uses: actions/cache@v4
@@ -59,8 +66,8 @@ jobs:
       - name: Restore dependencie.
         run: dotnet restore EDay2025GithubActions.sln --locked-mode --force-evaluate  
 
-      - name: Build WinUI project
-        run: dotnet build EDay2025GithubActions\EDay2025GithubActions.WinUI\EDay2025GithubActions.WinUI.csproj -c Release -f net9.0-windows10.0.19041.0
+      # - name: Build WinUI project
+      #   run: dotnet build EDay2025GithubActions\EDay2025GithubActions.WinUI\EDay2025GithubActions.WinUI.csproj -c Release -f net9.0-windows10.0.19041.0
 
       # - name: Publish WinUI project
       #   shell: pwsh
