@@ -62,18 +62,18 @@ jobs:
       - name: Build WinUI project
         run: dotnet build EDay2025GithubActions\EDay2025GithubActions.WinUI\EDay2025GithubActions.WinUI.csproj -c Release -f net9.0-windows10.0.19041.0
 
-      - name: Publish WinUI project
-        shell: pwsh
-        run: |
-          $projectName = "EDay2025GithubActions.WinUI"
-          $rootFolderPath = "EDay2025GithubActions/EDay2025GithubActions.WinUI"
-          $pubxmlPath = Resolve-Path (Join-Path $rootFolderPath "Properties/PublishProfiles/win-msix.pubxml")
-          $projectFilePath = Join-Path $rootFolderPath "$projectName.csproj"
+      # - name: Publish WinUI project
+      #   shell: pwsh
+      #   run: |
+      #     $projectName = "EDay2025GithubActions.WinUI"
+      #     $rootFolderPath = "EDay2025GithubActions/EDay2025GithubActions.WinUI"
+      #     $pubxmlPath = Resolve-Path (Join-Path $rootFolderPath "Properties/PublishProfiles/win-msix.pubxml")
+      #     $projectFilePath = Join-Path $rootFolderPath "$projectName.csproj"
 
-          dotnet publish $projectFilePath -p:PublishProfile=$pubxmlPath
+      #     dotnet publish $projectFilePath -p:PublishProfile=$pubxmlPath
 
-      - name: Upload published artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: WinUI-publish
-          path: ${{ github.workspace }}/EDay2025GithubActions/EDay2025GithubActions.WinUI/bin/publish/net9.0-windows10.0.19041.0/win-x64/AppPackages
+      # - name: Upload published artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: WinUI-publish
+      #     path: ${{ github.workspace }}/EDay2025GithubActions/EDay2025GithubActions.WinUI/bin/publish/net9.0-windows10.0.19041.0/win-x64/AppPackages
