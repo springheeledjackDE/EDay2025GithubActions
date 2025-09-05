@@ -18,10 +18,19 @@ jobs:
       - name: Debug secrets presence
         shell: pwsh
         run: |
-            if ("${{ secrets.PFX_CERT_BASE64 }}" -eq "") {
+            $pfxCert = "${{ secrets.PFX_CERT_BASE64 }}"
+            $pfxPass = "${{ secrets.PFX_CERT_PASSWORD }}"
+
+            if ([string]::IsNullOrEmpty($pfxCert)) {
               Write-Error "PFX_CERT_BASE64 secret is missing!"
             } else {
-              Write-Output "PFX_CERT_BASE64 is set (length: $(${ { secrets.PFX_CERT_BASE64 } }.Length))"
+              Write-Output "PFX_CERT_BASE64 is set (length: $($pfxCert.Length))"
+            }
+
+            if ([string]::IsNullOrEmpty($pfxPass)) {
+              Write-Error "PFX_CERT_PASSWORD secret is missing!"
+            } else {
+              Write-Output "PFX_CERT_PASSWORD is set (length: $($pfxPass.Length))"
             }
 
       - name: Setup .NET SDK
@@ -71,7 +80,7 @@ jobs:
         run: |
             $pfxPath = "$env:USERPROFILE\edays2025.pfx"
             [IO.File]::WriteAllBytes($pfxPath, [Convert]::FromBase64String("${{ secrets.PFX_CERT_BASE64 }}"))
-            Import-PfxCertificate -FilePath $pfxPath -Password (ConvertTo-SecureString -String "${{ secrets.PFX_PASSWORD }}" -AsPlainText -Force) -CertStoreLocation Cert:\CurrentUser\My
+            Import-PfxCertificate -FilePath $pfxPath -Password (ConvertTo-SecureString -String "${{ secrets.PFX_CERT_PASSWORD }}" -AsPlainText -Force) -CertStoreLocation Cert:\CurrentUser\My
 
       - name: Build WinUI project
         run: dotnet build EDay2025GithubActions\EDay2025GithubActions.WinUI\EDay2025GithubActions.WinUI.csproj -c Release -f net9.0-windows10.0.19041.0
