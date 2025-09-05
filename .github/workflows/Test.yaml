@@ -92,6 +92,9 @@ jobs:
       - name: Build WinUI project
         run: dotnet build EDay2025GithubActions\EDay2025GithubActions.WinUI\EDay2025GithubActions.WinUI.csproj -c Release -f net9.0-windows10.0.19041.0
 
+      - name: Run xUnit tests
+        run: dotnet test EDay2025GithubActions\TestProject1.csproj -c Release
+
       - name: Publish WinUI project
         shell: pwsh
         run: |
