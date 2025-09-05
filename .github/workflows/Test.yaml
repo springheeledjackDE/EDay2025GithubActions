@@ -22,9 +22,25 @@ jobs:
           cache: true
           cache-dependency-path: "**/packages.lock.json"
 
+      - name: Cache .NET workloads
+        id: cache-maui
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.dotnet/packs
+            ~/.dotnet/sdk-manifests
+            ~/.dotnet/workloadinstallrecords
+          key: ${{ runner.os }}-dotnet-maui-${{ hashFiles('**/*.csproj', '**/*.sln') }}
+          restore-keys: |
+
       # Optional: restore workloads if MAUI isn’t fully present
       - name: Install MAUI workload
+        if: steps.cache-maui.outputs.cache-hit != 'true'
         run: dotnet workload install maui --ignore-failed-sources
+
+       # Ensure workloads are ready (restores packs if cache restored partially)
+      - name: Restore workloads
+        run: dotnet workload restore
 
       - name: Verify workloads
         run: dotnet workload list
@@ -38,8 +54,10 @@ jobs:
       #     restore-keys: |
       #       ${{ runner.os }}-nuget-
 
+      
+
       - name: Restore dependencie.
-        run: dotnet restore EDay2025GithubActions.sln --locked-mode
+        run: dotnet restore EDay2025GithubActions.sln --locked-mode --force-evaluate  
 
       - name: Decode and import signing certificate
         shell: pwsh
