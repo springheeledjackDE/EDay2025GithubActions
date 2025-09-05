@@ -39,6 +39,13 @@ jobs:
       - name: Restore dependencie.
         run: dotnet restore EDay2025GithubActions.sln
 
+      - name: Decode and import signing certificate
+        shell: pwsh
+        run: |
+            $pfxPath = "$env:USERPROFILE\edays2025.pfx"
+            [IO.File]::WriteAllBytes($pfxPath, [Convert]::FromBase64String("${{ secrets.PFX_CERT_BASE64 }}"))
+            Import-PfxCertificate -FilePath $pfxPath -Password (ConvertTo-SecureString -String "${{ secrets.PFX_PASSWORD }}" -AsPlainText -Force) -CertStoreLocation Cert:\CurrentUser\My
+
       - name: Build WinUI project
         run: dotnet build EDay2025GithubActions\EDay2025GithubActions.WinUI\EDay2025GithubActions.WinUI.csproj -c Release -f net9.0-windows10.0.19041.0
 
